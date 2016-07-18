@@ -1,34 +1,24 @@
 #include <EventLoop.h>
 #include <Channel.h>
+#include <Acceptor.h>
 #include <sys/timerfd.h>
 #include <iostream>
 
-muduo::net::EventLoop* g_loop;
+extern void printf_address(int fd, struct sockaddr *in_addr, socklen_t in_len, const char *msg = "");
 
-void timeout()
+void newConnection(int sockfd, struct sockaddr &in_addr, socklen_t in_len)
 {
-    std::cout << "Timeout!" << std::endl;
-    g_loop->quit();
+    printf_address(sockfd, &in_addr, in_len);
+    ::write(sockfd, "jinger\n", 8);
+    ::close(sockfd);
 }
 
 int main()
 {
     muduo::net::EventLoop loop;
-    g_loop = &loop;
-
-    int timerfd = ::timerfd_create(CLOCK_MONOTONIC, TFD_NONBLOCK | TFD_CLOEXEC);
-    if(-1 == timerfd) {
-        std::cerr << "timerfd_create faile" << std::endl;
-        return -1;
-    }
-    muduo::net::Channel channel(&loop, timerfd);
-    channel.setReadCallback(timeout);
-    channel.enableReading();
-
-    struct itimerspec howlong;
-    howlong.it_value.tv_sec = 2;
-    ::timerfd_settime(timerfd, 0, &howlong, NULL);
+    muduo::net::Acceptor acceptor(&loop, "8090");
+    acceptor.setNewConnectionCallback(newConnection);
+    acceptor.listen();
     loop.loop();
-    ::close(timerfd);
     return 0;
 }
