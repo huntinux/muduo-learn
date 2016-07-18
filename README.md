@@ -10,4 +10,7 @@
 Channel是将fd与事件相关回调函数联系起来的类。
 
 Poller是IO multiplexing的抽象类，EPollPoller是基于epoll的实现。负责事件的注册、事件的查询。
+<<<<<<< HEAD
 
+=======
+>>>>>>> 85eed1f6505bd2458f966312b2ac30bd46335dcb
