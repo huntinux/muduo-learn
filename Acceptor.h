@@ -14,7 +14,6 @@ namespace net
 {
 
 class EventLoop;
-class InetAddress;
 
 ///
 /// Acceptor of incoming TCP connections.

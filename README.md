@@ -1,6 +1,10 @@
 
 对muduo的学习记录
 
+## v0.2
+增加Acceptor，用于接受新连接。该类是对channel的典型使用。将listenfd与接受连接
+的函数联系了起来。用法见main函数
+
 ## v0.1
 
 该版本是对第八章的总结，代码是从muduo源码中提取出来的，有一些小改动。该版本主要用于理解作者的框架。
@@ -10,7 +14,3 @@
 Channel是将fd与事件相关回调函数联系起来的类。
 
 Poller是IO multiplexing的抽象类，EPollPoller是基于epoll的实现。负责事件的注册、事件的查询。
-<<<<<<< HEAD
-
-=======
->>>>>>> 85eed1f6505bd2458f966312b2ac30bd46335dcb
