@@ -1,9 +1,12 @@
 
 对muduo的学习记录
-
+这里的代码来自muduo网络库，感谢作者陈硕
 
 ## v0.3
 增加Buffer、TcpConnection、TcpServer
+非阻塞网络库引入Buffer是必须的。可以看muduo的书籍7.4节
+TcpConnection表示一个连接，包含输入输出缓冲区
+TcpServer用来管理TcpConnection
 
 ## v0.2
 增加Acceptor，用于接受新连接。该类是对channel的典型使用。将listenfd与接受连接
