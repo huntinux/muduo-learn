@@ -32,6 +32,17 @@ class EventLoop : boost::noncopyable
 
   void quit() { quit_ = true; }
 
+    typedef boost::function<void()> functor;
+    void runInLoop(const functor& cb)
+    {
+        //if(isInLoopThread()) {
+        //  cb();
+        //} else {
+        //  queueInLoop(cb);
+        //}
+        cb(); 
+    }
+
   // internal usage
   void updateChannel(Channel* channel);
   void removeChannel(Channel* channel);

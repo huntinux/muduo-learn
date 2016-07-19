@@ -26,7 +26,7 @@ void printf_address(int fd, struct sockaddr *in_addr, socklen_t in_len, const ch
 		printf("[%8d]%s:  (host=%s, port=%s)\n", fd, msg, hbuf, sbuf);
 	}
 }
-static bool make_socket_reusable(int sfd)
+bool make_socket_reusable(int sfd)
 {
 	int enable = 1;
 	if (setsockopt(sfd, SOL_SOCKET, SO_REUSEADDR, (char *)&enable, sizeof(int)) < 0)
@@ -36,7 +36,7 @@ static bool make_socket_reusable(int sfd)
 	}
 	return true;
 }
-static bool make_socket_non_blocking(int sfd)
+bool make_socket_non_blocking(int sfd)
 {
 	int flags;
 
